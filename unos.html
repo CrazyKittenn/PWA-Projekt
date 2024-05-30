@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="hr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Vijesti o video igricama">
+    <meta name="keywords" content="Video igrice, Vijesti">
+    <meta name="author" content="Filip Gredelj">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/zajednici.css">
+    <link rel="stylesheet" href="css/unos.css">
+    <title>Unos</title>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li>
+                <a href="index.html">MOPO</a>
+            </li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#" id="nav_active">Unos</a></li>
+        </ul>
+    </nav>
+    <div id="black_line"></div>
+    <div id="grey_line"></div>
+    <div id="page-container">
+        <div id="content-wrap">
+            <main>
+                <form name="forma" action="skripta.php" method="post" enctype="multipart/form-data">
+                    <label for=" naslov">Naslov</label><br>
+                    <input type="text" name="naslov" id="naslov"><br>
+                    <br>
+                    <label for="kratakS">Kratak Sadržaj</label><br>
+                    <textarea rows="8" cols="50" name="kratakS" id="kratakS"></textarea><br>
+                    <br>
+                    <label for="sadrzaj">Sadržaj</label><br>
+                    <textarea rows="16" cols="50" name="sadrzaj" id="sadrzaj"></textarea><br>
+                    <br>
+                    <label for="k">Kategorije</label><br>
+                    <select name=k id="k" size="1">
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                        <option value="mercedes">Mercedes</option>
+                        <option value="audi">Audi</option>
+                    </select>
+                    <br>
+                    <label for="slika">Slika</label><br>
+                    <input type="file" name="slika" id="slika">
+                    <br>
+                    <label for="check">Spremi u arhiv</label>
+                    <input type="checkbox" name="check" id="check">
+                    <br><br>
+                    <input type="submit" value="Pošalji">
+                </form>
+            </main>
+        </div>
+        <footer id="footer">
+            <p>Filip Gredelj fgredelj@tvz.hr 2024</p>
+        </footer>
+    </div>
+</body>
+
+</html>
