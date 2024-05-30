@@ -7,8 +7,7 @@
     <meta name="keywords" content="Video igrice, Vijesti">
     <meta name="author" content="Filip Gredelj">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/zajednici.css">
-    <link rel="stylesheet" href="css/clanak.css">
+    <link rel="stylesheet" href="css/style.css">
     <title>Pregled unosa</title>
 </head>
 
