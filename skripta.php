@@ -11,7 +11,7 @@
     <title>Pregled unosa</title>
 </head>
 
-<body>
+<body class="unos">
     <nav>
         <ul>
             <li>
@@ -25,7 +25,7 @@
     <div id="grey_line"></div>
     <div id="page-container">
         <div id="content-wrap">
-            <main>
+            <main class="clanak">
                 <?php
                 $naslov = $_POST["naslov"];
                 $kratakS = $_POST["kratakS"];
@@ -49,12 +49,12 @@
                         <hr>
                         <p><?php echo $kategorija; ?></p>
                     </section>
-                    <?php echo "<img src='Images/$slika' alt='$slika' width='60%'>"; ?>
+                    <?php echo "<img src='Images/$slika' alt='$slika'>"; ?>
                     <section>
                         <p><?php echo $sadrzaj; ?></p>
                     </section>
                 </article>
-                <hr>;
+                <hr>
             </main>
         </div>
         <footer id="footer">
