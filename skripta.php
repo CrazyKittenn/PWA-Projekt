@@ -23,44 +23,40 @@
     </nav>
     <div id="black_line"></div>
     <div id="grey_line"></div>
-    <div id="page-container">
-        <div id="content-wrap">
-            <main class="clanak">
-                <?php
-                $naslov = $_POST["naslov"];
-                $kratakS = $_POST["kratakS"];
-                $sadrzaj = $_POST["sadrzaj"];
-                $kategorija = $_POST["k"];
-                $slika = $_FILES["slika"]["name"];
-                $target_dir = "Images/$slika";
-                move_uploaded_file($_FILES["slika"]["tmp_name"], $target_dir);
-                $arhive = 0;
-                if (isset($_POST["check"])) {
-                    $arhive = 1;
-                }
-                ?>
-                <article>
-                    <section>
-                        <h1><?php echo $naslov; ?></h1>
-                        <hr>
-                        <p>Autor</p>
-                        <hr>
-                        <p>Datum</p>
-                        <hr>
-                        <p><?php echo $kategorija; ?></p>
-                    </section>
-                    <?php echo "<img src='Images/$slika' alt='$slika'>"; ?>
-                    <section>
-                        <p><?php echo $sadrzaj; ?></p>
-                    </section>
-                </article>
+    <main class="clanak">
+        <?php
+        $naslov = $_POST["naslov"];
+        $kratakS = $_POST["kratakS"];
+        $sadrzaj = $_POST["sadrzaj"];
+        $kategorija = $_POST["k"];
+        $slika = $_FILES["slika"]["name"];
+        $target_dir = "Images/$slika";
+        move_uploaded_file($_FILES["slika"]["tmp_name"], $target_dir);
+        $arhive = 0;
+        if (isset($_POST["check"])) {
+            $arhive = 1;
+        }
+        ?>
+        <article>
+            <section>
+                <h1><?php echo $naslov; ?></h1>
                 <hr>
-            </main>
-        </div>
-        <footer id="footer">
-            <p>Filip Gredelj fgredelj@tvz.hr 2024</p>
-        </footer>
-    </div>
+                <p>Autor</p>
+                <hr>
+                <p>Datum</p>
+                <hr>
+                <p><?php echo $kategorija; ?></p>
+            </section>
+            <?php echo "<img src='Images/$slika' alt='$slika'>"; ?>
+            <section>
+                <p><?php echo $sadrzaj; ?></p>
+            </section>
+        </article>
+        <hr>
+    </main>
 </body>
+<footer id="footer">
+    <p>Filip Gredelj fgredelj@tvz.hr 2024</p>
+</footer>
 
 </html>

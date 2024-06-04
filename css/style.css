@@ -143,12 +143,3 @@ main.unos form {
     height: 2px;
     width: 100%;
 }
-
-#page-container {
-    position: relative;
-    min-height: 93.5vh;
-}
-
-#content-wrap {
-    padding-bottom: 2.5rem;
-}
