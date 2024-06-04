@@ -15,20 +15,26 @@
     <nav>
         <ul>
             <li>
-                <a href="index.html">Game News</a>
+                <a href="index.php">Game News</a>
             </li>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="#" id="nav_active">Unos</a></li>
+            <li><a href="index.php">Početna</a></li>
+            <li><a href="unos.html" id="nav_active">Unos</a></li>
+            <li><a href="clanak.php">Članci</a></li>
+            <li><a href="administracija.php">Administracija</a></li>
         </ul>
     </nav>
     <div id="black_line"></div>
     <div id="grey_line"></div>
     <main class="clanak">
         <?php
+        include "connect.php";
         $naslov = $_POST["naslov"];
         $kratakS = $_POST["kratakS"];
         $sadrzaj = $_POST["sadrzaj"];
         $kategorija = $_POST["k"];
+        if (!is_dir("Images/")) {
+            mkdir("Images/");
+        }
         $slika = $_FILES["slika"]["name"];
         $target_dir = "Images/$slika";
         move_uploaded_file($_FILES["slika"]["tmp_name"], $target_dir);
@@ -36,12 +42,14 @@
         if (isset($_POST["check"])) {
             $arhive = 1;
         }
+        $date = date('Y-m-d');
+        $query = "INSERT INTO $tablename (datum, naslov, sazetak, tekst, slika, kategorija, arhiva) 
+                  VALUES ('$date', '$naslov','$kratakS', '$sadrzaj', '$slika', '$kategorija', '$arhive')";
+        $result = mysqli_query($connection, $query) or die('Error querying databese.');
         ?>
         <article>
             <section>
                 <h1><?php echo $naslov; ?></h1>
-                <hr>
-                <p>Autor</p>
                 <hr>
                 <p>Datum</p>
                 <hr>

@@ -17,8 +17,10 @@
             <li>
                 <a href="#">Game News</a>
             </li>
-            <li><a href="#" id="nav_active">Home</a></li>
+            <li><a href="#" id="nav_active">Početna</a></li>
             <li><a href="unos.html">Unos</a></li>
+            <li><a href="clanak.php">Članci</a></li>
+            <li><a href="administracija.php">Administracija</a></li>
         </ul>
     </nav>
     <div id="black_line"></div>
@@ -27,34 +29,41 @@
         <h1>Popularno</h1>
         <hr>
         <section>
-            <article>
-                <img src="Images/image1.jpg" alt="image1">
-                <p>Clanak 10 Novo u gamingu</p>
-            </article>
-            <article>
-                <img src="Images/image2.jpg" alt="image2">
-                <p>Clanak 2 Novo u gamingu</p>
-            </article>
-            <article>
-                <img src="Images/image3.jpg" alt="image3">
-                <p>Clanak 3 Novo u gamingu</p>
-            </article>
+            <?php
+            include 'connect.php';
+            $query = "SELECT id, sazetak, slika FROM clanci WHERE arhiva=1 AND kategorija='popularno' LIMIT 3";
+            $result = mysqli_query($connection, $query);
+            while ($row = mysqli_fetch_array($result)) {
+                $id = $row["id"];
+                $sazetak = $row["sazetak"];
+                $slika = $row["slika"];
+                echo "<article>";
+                echo "<a href='clanak.php?id=$id'>";
+                echo "<img src='Images/$slika' alt='$slika'>";
+                echo "<p>$sazetak</p>";
+                echo "</a>";
+                echo "</article>";
+            }
+            ?>
         </section>
         <h1>Retro</h1>
         <hr>
         <section>
-            <article>
-                <img src="Images/image4.jpg" alt="image1">
-                <p>Clanak 4 Novo u gamingu</p>
-            </article>
-            <article>
-                <img src="Images/image5.jpg" alt="image2">
-                <p>Clanak 5 Novo u gamingu</p>
-            </article>
-            <article>
-                <img src="Images/image6.jpg" alt="image3">
-                <p>Clanak 6 Novo u gamingu</p>
-            </article>
+            <?php
+            $query = "SELECT id, sazetak, slika FROM clanci WHERE arhiva=1 AND kategorija='retro' LIMIT 3";
+            $result = mysqli_query($connection, $query);
+            while ($row = mysqli_fetch_array($result)) {
+                $id = $row["id"];
+                $sazetak = $row["sazetak"];
+                $slika = $row["slika"];
+                echo "<article>";
+                echo "<a href='clanak.php?id=$id'>";
+                echo "<img src='Images/$slika' alt='$slika'>";
+                echo "<p>$sazetak</p>";
+                echo "</a>";
+                echo "</article>";
+            }
+            ?>
         </section>
     </main>
 </body>
