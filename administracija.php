@@ -2,27 +2,29 @@
 <html lang="hr">
 <?php
 include "connect.php";
-if (isset($_POST['delete'])) {
-    $id = $_POST['id'];
+if (isset($_POST["delete"])) {
+    $id = $_POST["id"];
     $query = "DELETE FROM $tablename WHERE id=$id ";
     $result = mysqli_query($connection, $query);
 }
-if (isset($_POST['update'])) {
-    $picture = $_FILES['photo']['name'];
-    $title = $_POST['title'];
-    $about = $_POST['about'];
-    $content = $_POST['content'];
-    $category = $_POST['category'];
-    if (isset($_POST['archive'])) {
-        $archive = 1;
-    } else {
-        $archive = 0;
+if (isset($_POST["update"])) {
+    $id = $_POST["id"];
+    $slika = $_FILES["photo"]["name"];
+    $naslov = $_POST["naslov"];
+    $sazetak = $_POST["sazetak"];
+    $tekst = $_POST["tekst"];
+    $kategorija = $_POST["kategorija"];
+    $arhiva = 0;
+    if (isset($_POST["arhiva"])) {
+        $arhiva = 1;
     }
-    $target_dir = 'Images/' . $picture;
-    move_uploaded_file($_FILES["photo"]["tmp_name"], $target_dir);
-    $id = $_POST['id'];
-    $query = "UPDATE vijesti SET naslov='$title', sazetak='$about', tekst='$content',
-    slika='$picture', kategorija='$category', arhiva='$archive' WHERE id=$id ";
+    if ($slika == "") {
+        $slika = $_POST["slika"];
+    }
+    $target_dir = "Images/$slika";
+    move_uploaded_file($_FILES["photo"]["tmp_name"], $slika);
+    $query = "UPDATE vijesti SET naslov='$naslov', sazetak='$sazetak', tekst='$tekst',
+    slika='$slika', kategorija='$kategorija', arhiva='$arhiva' WHERE id=$id ";
     $result = mysqli_query($connection, $query);
 }
 ?>
@@ -41,7 +43,7 @@ if (isset($_POST['update'])) {
     <nav>
         <ul>
             <li>
-                <a href="#">Game News</a>
+                <a href="index.php">Game News</a>
             </li>
             <li><a href="index.php">Početna</a></li>
             <li><a href="unos.html">Unos</a></li>
@@ -67,60 +69,45 @@ if (isset($_POST['update'])) {
             $arhiva = $row["arhiva"];
             $id = $row["id"];
             echo "<form enctype='multipart/form-data' action='' method='POST'>
-            <div>
-                <label for='title'>Naslov vjesti:</label>
-                <div>
-                    <input type='text' name='title' value='$naslov'>
-                </div>
-            </div>
-            <div class='form-item'>
-                <label for='about'>Kratki sadržaj vijesti (do 50 znakova):</label>
-                <div class='form-field'>
-                    <textarea name='about' id='' cols='30' rows='10'>$sazetak</textarea>
-                </div>
-            </div>
-            <div>
-                <label for='content'>Sadržaj vijesti:</label>
-                <div class='form-field'>
-                    <textarea name='content' id='' cols='30' rows='10'>$tekst</textarea>
-                </div>
-            </div>
-            <div>
-                <label for='photo'>Slika:</label>
-                <div>
-                <input type='file' id='photo' value='$slika' name='photo'/> <br>
-                <img src='Images/$slika' width=100px>
-                </div>
-                 </div>
-                 <div>
-                 <label for='category'>Kategorija vijesti:</label>
-                 <div>
-                 <select name='category' id='' value='$kategorija'>
-                 <option value='popularno'>Popularno</option>
-                 <option value='retro'>Retro</option>
-                 </select>
-                 </div>
-                 </div>
-                 <div>
-                 <label>Spremiti u arhivu:
-                 <div>";
-            if ($arhiva == 0) {
-                echo "<input type='checkbox' name='archive' id='archive'/> Arhiviraj?";
+            <label for='naslov'>Naslov vjesti:</label><br>
+            <input type='text' name='naslov' id='naslov' value='$naslov'>
+            <br>
+            <label for='sazetak'>Kratki sadržaj vijesti (do 50 znakova):</label><br>
+            <textarea name='sazetak' id='sazetak' cols='30' rows='10'>$sazetak</textarea>
+            <br>
+            <label for='tekst'>Sadržaj vijesti:</label><br>
+            <textarea name='tekst' id='tekst' cols='30' rows='10'>$tekst</textarea>
+            <br>
+            <label for='photo'>Slika:</label><br>
+            <input type='hidden' name='slika' id='slika' value='$slika'>
+            <input type='file' id='photo' value='$slika' name='photo'/> <br>
+            <img src='Images/$slika' width=100px>
+            <br>
+            <label for='kategorija'>Kategorija vijesti:</label><br>
+            <select name='kategorija' id='kategorija' value='$kategorija'>";
+            if ($kategorija == "popularno") {
+                echo "<option value='popularno' selected>Popularno</option>";
+                echo " <option value='retro'>Retro</option>";
             } else {
-                echo "<input type='checkbox' name='archive' id='archive' checked/> Arhiviraj?";
+                echo "<option value='popularno'>Popularno</option>";
+                echo " <option value='retro' selected>Retro</option>";
             }
-            echo "</div>
-                 </label>
-                 </div>
-                 </div>
-                 <div>
-                 <input type='hidden' name='id' value='$id'>
-                 <button type='reset' value='Poništi'>Poništi</button>
-                 <button type='submit' name='update' value='Prihvati'>Izmjeni</button>
-                 <button type='submit' name='delete' value='Izbriši'>Izbriši</button>
-                 </div>
-                 <hr>
-                 </form>";
+            echo "</select>
+            <br>
+            <label>Spremiti u arhivu:<br>";
+            if ($arhiva == 0) {
+                echo "<input type='checkbox' name='arhiva' id='arhiva'/> Arhiviraj?";
+            } else {
+                echo "<input type='checkbox' name='arhiva' id='arhiva' checked/> Arhiviraj?";
+            }
+            echo "</label>
+            <br>
+            <input type='hidden' name='id' value='$id'>
+            <button type='reset' value='Poništi'>Poništi</button>
+            <button type='submit' name='update' value='Prihvati'>Izmjeni</button>
+            <button type='submit' name='delete' value='Izbriši'>Izbriši</button>
+            <hr>
+            </form>";
         }
         ?>
     </main>

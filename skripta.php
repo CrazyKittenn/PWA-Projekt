@@ -31,22 +31,22 @@
         <?php
         include "connect.php";
         $naslov = $_POST["naslov"];
-        $kratakS = $_POST["kratakS"];
         $sadrzaj = $_POST["sadrzaj"];
-        $kategorija = $_POST["k"];
+        $tekst = $_POST["tekst"];
+        $kategorija = $_POST["kategorija"];
         if (!is_dir("Images/")) {
             mkdir("Images/");
         }
         $slika = $_FILES["slika"]["name"];
         $target_dir = "Images/$slika";
         move_uploaded_file($_FILES["slika"]["tmp_name"], $target_dir);
-        $arhive = 0;
-        if (isset($_POST["check"])) {
-            $arhive = 1;
+        $arhiva = 0;
+        if (isset($_POST["arhiva"])) {
+            $arhiva = 1;
         }
         $date = date('Y-m-d');
         $query = "INSERT INTO $tablename (datum, naslov, sazetak, tekst, slika, kategorija, arhiva) 
-                  VALUES ('$date', '$naslov','$kratakS', '$sadrzaj', '$slika', '$kategorija', '$arhive')";
+                  VALUES ('$date', '$naslov','$sadrzaj', '$tekst', '$slika', '$kategorija', '$arhiva')";
         $result = mysqli_query($connection, $query) or die('Error querying databese.');
         ?>
         <article>
