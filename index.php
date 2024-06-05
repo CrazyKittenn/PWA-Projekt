@@ -70,7 +70,7 @@
         </section>
     </main>
 </body>
-<footer>
+<footer class="bottom">
     <p>Filip Gredelj fgredelj@tvz.hr 2024</p>
 </footer>
 

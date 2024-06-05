@@ -41,7 +41,7 @@ while ($row = mysqli_fetch_array($result)) {
     <title><?php echo "Vijest - $naslov" ?></title>
 </head>
 
-<body>
+<body class="red">
     <nav>
         <ul>
             <li>
@@ -114,7 +114,7 @@ while ($row = mysqli_fetch_array($result)) {
         </div>
     </div>
 </body>
-<footer id="footer">
+<footer class="bottom">
     <p>Filip Gredelj fgredelj@tvz.hr 2024</p>
 </footer>
 
