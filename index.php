@@ -23,6 +23,7 @@
             <li><a href="kategorija.php?k=popularno">Popularno</a></li>
             <li><a href="kategorija.php?k=retro">Retro</a></li>
             <li><a href="administracija.php">Administracija</a></li>
+            <li><a href="registracija.php">Registracija</a></li>
         </ul>
     </nav>
     <div id="black_line"></div>

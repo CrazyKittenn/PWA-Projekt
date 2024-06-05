@@ -2,21 +2,26 @@
 <html lang="hr">
 <?php
 include "connect.php";
+$ids = [];
+$count = 0;
+$query = "SELECT id FROM $tablename WHERE arhiva = 1 ORDER BY id ASC";
+$result = mysqli_query($connection, $query);
+while ($row = mysqli_fetch_array($result)) {
+    $ids[$count] = $row["id"];
+    $count++;
+}
 $id = 1;
 if (isset($_GET["id"])) {
     $id = $_GET["id"];
 } else {
-    $query = "SELECT id FROM $tablename ORDER BY id ASC LIMIT 1";
-    $result = mysqli_query($connection, $query);
-    while ($row = mysqli_fetch_array($result)) {
-        $id = $row["id"];
-    }
+    $id = $ids[0];
 }
+
 $naslov = "";
 $datum = "";
 $slika = "";
 $sadrzaj = "";
-$query = "SELECT naslov, datum, slika, tekst FROM $tablename WHERE id = $id";
+$query = "SELECT naslov, datum, slika, tekst FROM $tablename WHERE id = $id AND arhiva = 1";
 $result = mysqli_query($connection, $query);
 while ($row = mysqli_fetch_array($result)) {
     $naslov = $row["naslov"];
@@ -66,6 +71,48 @@ while ($row = mysqli_fetch_array($result)) {
         </article>
         <hr>
     </main>
+    <div class="center">
+        <div class="pagination">
+            <?php
+            $position = array_search($id, $ids);
+            if ($id == $ids[0]) {
+                echo "<a href='#' class='disabled' tabindex='-1'>&laquo;</a>";
+            } else {
+                $prevoiusId = $ids[$position - 1];
+                echo "<a href='vijest.php?id=$prevoiusId'>&laquo;</a>";
+            }
+            $startIndex = 0;
+            $endIndex = $count;
+            if ($count > 5) {
+                if ($position > 2) {
+                    $startIndex = $position - 2;
+                    $endIndex = $position + 3;
+                } else {
+                    $endIndex = 5;
+                }
+            }
+            if ($position > $count - 4) {
+                $startIndex = $count - 5;
+                $endIndex = $count;
+            }
+            for ($i = $startIndex; $i < $endIndex; $i++) {
+                $displayIndex = $i + 1;
+                if ($i == $position) {
+                    echo "<a class='active' href='#'>$displayIndex</a>";
+                } else {
+                    $link = $ids[$startIndex + $i];
+                    echo "<a href='vijest.php?id=$link'>$displayIndex</a>";
+                }
+            }
+            if ($id == $ids[$count - 1]) {
+                echo "<a href='#' class='disabled' tabindex='-1'>&raquo;</a>";
+            } else {
+                $nextId = $ids[$position + 1];
+                echo "<a href='vijest.php?id=$nextId'>&raquo;</a>";
+            }
+            ?>
+        </div>
+    </div>
 </body>
 <footer id="footer">
     <p>Filip Gredelj fgredelj@tvz.hr 2024</p>
