@@ -4,7 +4,7 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $basename = "pwa_projekt_filip_gredelj";
-$tablename = "clanci";
+$tablename = "vijesti";
 // Create connection
 $connection = mysqli_connect($servername, $username, $password, $basename) or die('Error connecting to MySQL server.' . mysqli_connect_error());
 mysqli_set_charset($connection, "utf8");

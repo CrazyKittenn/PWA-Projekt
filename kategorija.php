@@ -1,5 +1,15 @@
 <!DOCTYPE html>
 <html lang="hr">
+<?php
+$k = "popularno";
+$naslov = "Popularno";
+if (isset($_GET["k"])) {
+    $k = $_GET["k"];
+}
+if ($k == "retro") {
+    $naslov = "Retro";
+}
+?>
 
 <head>
     <meta charset="UTF-8">
@@ -8,61 +18,47 @@
     <meta name="keywords" content="Video igrice, Vijesti">
     <meta name="author" content="Filip Gredelj">
     <link rel="stylesheet" href="css/style.css">
-    <title>Početna</title>
+    <title><?php echo $naslov ?></title>
 </head>
 
 <body>
     <nav>
         <ul>
             <li>
-                <a href="#">Game News</a>
+                <a href="index.php">Game News</a>
             </li>
-            <li><a href="#" id="nav_active">Početna</a></li>
+            <li><a href="index.php">Početna</a></li>
             <li><a href="unos.html">Unos</a></li>
             <li><a href="vijest.php">Vijesti</a></li>
-            <li><a href="kategorija.php?k=popularno">Popularno</a></li>
-            <li><a href="kategorija.php?k=retro">Retro</a></li>
+            <?php
+            if ($k == "popularno") {
+                echo "<li><a href='kategorija.php?k=popularno' id='nav_active'>Popularno</a></li>";
+                echo "<li><a href='kategorija.php?k=retro'>Retro</a></li>";
+            } else {
+                echo "<li><a href='kategorija.php?k=popularno'>Popularno</a></li>";
+                echo "<li><a href='kategorija.php?k=retro' id='nav_active'>Retro</a></li>";
+            }
+            ?>
             <li><a href="administracija.php">Administracija</a></li>
         </ul>
     </nav>
     <div id="black_line"></div>
     <div id="grey_line"></div>
     <main class="pocetna">
-        <h1>Popularno</h1>
+        <h1><?php echo $naslov ?></h1>
         <hr>
         <section>
             <?php
             include 'connect.php';
-            $query = "SELECT id, sazetak, slika FROM $tablename WHERE arhiva=1 AND kategorija='popularno' LIMIT 3";
+            $query = "SELECT id, sazetak, slika FROM $tablename WHERE arhiva=0 AND kategorija='$k'";
             $result = mysqli_query($connection, $query);
             while ($row = mysqli_fetch_array($result)) {
                 $id = $row["id"];
                 $sazetak = $row["sazetak"];
                 $slika = $row["slika"];
                 echo "<article>";
-                echo "<a href='vijest.php?id=$id'>";
                 echo "<img src='Images/$slika' alt='$slika'>";
                 echo "<p>$sazetak</p>";
-                echo "</a>";
-                echo "</article>";
-            }
-            ?>
-        </section>
-        <h1>Retro</h1>
-        <hr>
-        <section>
-            <?php
-            $query = "SELECT id, sazetak, slika FROM $tablename WHERE arhiva=1 AND kategorija='retro' LIMIT 3";
-            $result = mysqli_query($connection, $query);
-            while ($row = mysqli_fetch_array($result)) {
-                $id = $row["id"];
-                $sazetak = $row["sazetak"];
-                $slika = $row["slika"];
-                echo "<article>";
-                echo "<a href='vijest.php?id=$id'>";
-                echo "<img src='Images/$slika' alt='$slika'>";
-                echo "<p>$sazetak</p>";
-                echo "</a>";
                 echo "</article>";
             }
             ?>
