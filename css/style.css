@@ -102,7 +102,12 @@ main.pocetna section article img {
     box-shadow: 0px 2px grey;
 }
 
-main.pocetna section article p {
+main.pocetna section article a {
+    text-decoration: none;
+    color: black;
+}
+
+main.pocetna section article a p {
     margin: 4px;
     padding-left: 2px;
     padding-right: 2px;
@@ -124,9 +129,29 @@ main.clanak img {
 }
 
 
-main.unos form {
+main.forma form {
     margin: auto;
     text-align: center;
+}
+
+main.vijest article section {
+    background-color: white;
+    margin: 10px;
+    padding: 4px;
+}
+
+main.vijest article section h1 {
+    color: black;
+    font-size: 30px;
+    padding-left: 0px;
+}
+
+main.vijest article div {
+    text-align: center;
+}
+
+main.vijest article div img {
+    width: 50%;
 }
 
 #nav_active {

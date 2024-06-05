@@ -1,6 +1,35 @@
 <!DOCTYPE html>
 <html lang="hr">
 
+<?php
+include "connect.php";
+$uspjeh = 0;
+if (isset($_POST["submit"])) {
+    $uspjeh = 1;
+    $kIme = $_POST["kIme"];
+    $query = "SELECT korisnicko_ime FROM korisnik";
+    $result = mysqli_query($connection, $query);
+    while ($row =  mysqli_fetch_array($result)) {
+        if (strtolower($row["korisnicko_ime"]) == strtolower($kIme)) {
+            $uspjeh = 2;
+        }
+    }
+    if ($uspjeh == 1) {
+        $ime = $_POST["ime"];
+        $prezime = $_POST["prezime"];
+        $lozinka = $_POST["lozinka"];
+        $razina = $_POST["razina"];
+        $hash = password_hash($lozinka, CRYPT_BLOWFISH);
+        $query = "INSERT INTO korisnik(ime, prezime, korisnicko_ime, lozinka, razina) VALUES(?,?,?,?,?)";
+        $stmt = mysqli_stmt_init($connection);
+        if (mysqli_stmt_prepare($stmt, $query)) {
+            mysqli_stmt_bind_param($stmt, 'ssssi', $ime, $prezime, $kIme, $hash, $razina);
+            mysqli_stmt_execute($stmt);
+        }
+    }
+}
+?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Vijesti o video igricama">
@@ -28,39 +57,47 @@
     </nav>
     <div id="black_line"></div>
     <div id="grey_line"></div>
-    <main class="unos">
+    <main class="forma">
         <form name="forma" action="" method="post">
-            <label for=" naslov">Naslov</label><br>
-            <input type="text" name="naslov" id="naslov"><br>
-            <span id="naslovError"></span>
+            <label for="ime">Ime</label><br>
+            <input type="text" name="ime" id="ime"><br>
+            <span id="imeError"></span>
             <br>
-            <label for="sadrzaj">Kratak Sadržaj</label><br>
-            <textarea rows="8" cols="50" name="sadrzaj" id="sadrzaj"></textarea><br>
-            <span id="sadrzajError"></span>
+            <label for="prezime">Prezime</label><br>
+            <input type="text" name="prezime" id="prezime"><br>
+            <span id="prezimeError"></span>
             <br>
-            <label for="tekst">Sadržaj</label><br>
-            <textarea rows="16" cols="50" name="tekst" id="tekst"></textarea><br>
-            <span id="tekstError"></span>
+            <label for="kIme">Korisničko Ime</label><br>
+            <input type="text" name="kIme" id="kIme"><br>
+            <span id="kImeError"></span>
             <br>
-            <label for="kategorija">Kategorija</label><br>
-            <select name="kategorija" id="kategorija" size="1">
-                <option value="popularno">Popularno</option>
-                <option value="retro">Retro</option>
-            </select>
+            <label for="lozinka">Lozinka</label><br>
+            <input type="password" name="lozinka" id="lozinka"><br>
+            <span id="lozinkaError"></span>
+            <br>
+            <label for="lozinkaP">Ponovite lozinku</label><br>
+            <input type="password" name="lozinkaP" id="lozinkaP"><br>
+            <span id="lozinkaPError"></span>
+            <br>
+            <input type="hidden" name="razina" value="0">
             <br><br>
-            <label for="slika">Slika</label><br>
-            <input type="file" name="slika" id="slika"><br>
-            <span id="slikaError"></span>
-            <br>
-            <label for="arhiva">Spremi u arhiv</label>
-            <input type="checkbox" name="arhiva" id="arhiva">
-            <br><br>
-            <input type="submit" id="submit" value="Pošalji">
+            <input type="submit" id="submit" name="submit" value="Registriraj">
         </form>
+        <?php
+        if ($uspjeh != 0) {
+            echo "<div class='center'>";
+            if ($uspjeh == 1) {
+                echo "<p>Registracija je uspješna</p>";
+            } else if ($uspjeh == 2) {
+                echo "<p>Registracija nije uspjela, korisničko ime već postoji!</p>";
+            }
+            echo "</div>";
+        }
+        ?>
     </main>
 </body>
-<script src="provjera.js"></script>
-<footer id="footer">
+<script src="js/provjera_reg.js"></script>
+<footer class="bottom">
     <p>Filip Gredelj fgredelj@tvz.hr 2024</p>
 </footer>
 

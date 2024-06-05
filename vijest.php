@@ -2,6 +2,7 @@
 <html lang="hr">
 <?php
 include "connect.php";
+$id = 1;
 $ids = [];
 $count = 0;
 $query = "SELECT id FROM $tablename WHERE arhiva = 1 ORDER BY id ASC";
@@ -10,7 +11,6 @@ while ($row = mysqli_fetch_array($result)) {
     $ids[$count] = $row["id"];
     $count++;
 }
-$id = 1;
 if (isset($_GET["id"])) {
     $id = $_GET["id"];
 } else {
@@ -21,11 +21,11 @@ $naslov = "";
 $datum = "";
 $slika = "";
 $sadrzaj = "";
-$query = "SELECT naslov, datum, slika, tekst FROM $tablename WHERE id = $id AND arhiva = 1";
+$query = "SELECT naslov, datum, slika, tekst FROM $tablename WHERE id = $id";
 $result = mysqli_query($connection, $query);
 while ($row = mysqli_fetch_array($result)) {
     $naslov = $row["naslov"];
-    $datum = $row["datum"];
+    $datum = date("j.m.y", strtotime($row["datum"]));
     $slika = $row["slika"];
     $sadrzaj = $row["tekst"];
 }
@@ -53,18 +53,21 @@ while ($row = mysqli_fetch_array($result)) {
             <li><a href="kategorija.php?k=popularno">Popularno</a></li>
             <li><a href="kategorija.php?k=retro">Retro</a></li>
             <li><a href="administracija.php">Administracija</a></li>
+            <li><a href="registracija.php">Registracija</a></li>
         </ul>
     </nav>
     <div id="black_line"></div>
     <div id="grey_line"></div>
-    <main>
+    <main class="vijest">
         <article>
             <section>
                 <h1><?php echo $naslov ?></h1>
                 <hr>
                 <p><?php echo $datum ?></p>
             </section>
-            <?php echo "<img src='Images/$slika' alt='$slika' width='60%'>"; ?>
+            <div>
+                <?php echo "<img src='Images/$slika' alt='$slika'>"; ?>
+            </div>
             <section>
                 <p><?php echo $sadrzaj ?></p>
             </section>
@@ -90,18 +93,18 @@ while ($row = mysqli_fetch_array($result)) {
                 } else {
                     $endIndex = 5;
                 }
-            }
-            if ($position > $count - 4) {
-                $startIndex = $count - 5;
-                $endIndex = $count;
+                if ($position > $count - 4) {
+                    $startIndex = $count - 5;
+                    $endIndex = $count;
+                }
             }
             for ($i = $startIndex; $i < $endIndex; $i++) {
                 $displayIndex = $i + 1;
                 if ($i == $position) {
                     echo "<a class='active' href='#'>$displayIndex</a>";
                 } else {
-                    $link = $ids[$startIndex + $i];
-                    echo "<a href='vijest.php?id=$link'>$displayIndex</a>";
+                    $linkId = $ids[$startIndex + $i];
+                    echo "<a href='vijest.php?id=$linkId'>$displayIndex</a>";
                 }
             }
             if ($id == $ids[$count - 1]) {
