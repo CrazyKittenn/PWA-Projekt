@@ -2,6 +2,7 @@
 <html lang="hr">
 <?php
 include "connect.php";
+session_start();
 $id = 1;
 $ids = [];
 $count = 0;
@@ -15,6 +16,13 @@ if (isset($_GET["id"])) {
     $id = $_GET["id"];
 } else {
     $id = $ids[0];
+}
+
+$loginUspjeh = 0;
+$kIme = "";
+if (isset($_SESSION["login_uspjeh"])) {
+    $loginUspjeh = $_SESSION["login_uspjeh"];
+    $kIme = $_SESSION["kIme"];
 }
 
 $naslov = "";
@@ -48,12 +56,19 @@ while ($row = mysqli_fetch_array($result)) {
                 <a href="index.php">Game News</a>
             </li>
             <li><a href="index.php">Početna</a></li>
-            <li><a href="unos.html">Unos</a></li>
+            <li><a href="unos.php">Unos</a></li>
             <li><a href="vijest.php" id="nav_active">Vijesti</a></li>
             <li><a href="kategorija.php?k=popularno">Popularno</a></li>
             <li><a href="kategorija.php?k=retro">Retro</a></li>
             <li><a href="administracija.php">Administracija</a></li>
             <li><a href="registracija.php">Registracija</a></li>
+            <?php
+            if ($loginUspjeh == 1) {
+                echo "<li><a href='korisnik.php'>$kIme</a></li>";
+            } else {
+                echo "<li><a href='login.php'>Login</a></li>";
+            }
+            ?>
         </ul>
     </nav>
     <div id="black_line"></div>

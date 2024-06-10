@@ -41,26 +41,6 @@ if (isset($_POST["update"])) {
     slika='$slika', kategorija='$kategorija', arhiva='$arhiva' WHERE id=$id ";
     $result = mysqli_query($connection, $query);
 }
-if (isset($_POST["submit"])) {
-    $kIme = $_POST["kIme"];
-    $lozinka = $_POST["lozinka"];
-    $hash = "";
-    $query = "SELECT ime, prezime, korisnicko_ime, lozinka, razina FROM korisnik WHERE korisnicko_ime = ?";
-    $stmt = mysqli_stmt_init($connection);
-    if (mysqli_stmt_prepare($stmt, $query)) {
-        mysqli_stmt_bind_param($stmt, 's', $kIme);
-        mysqli_stmt_execute($stmt);
-        mysqli_stmt_store_result($stmt);
-    }
-    mysqli_stmt_bind_result($stmt, $ime, $prezime, $kIme, $hash, $razina);
-    mysqli_stmt_fetch($stmt);
-
-    if (password_verify($lozinka, $hash)) {
-        $loginUspjeh = 1;
-        $_SESSION["login_uspjeh"] = 1;
-        $_SESSION["razina"] = $razina;
-    }
-}
 ?>
 
 <head>
@@ -86,6 +66,13 @@ if (isset($_POST["submit"])) {
             <li><a href="kategorija.php?k=retro">Retro</a></li>
             <li><a href="#" id="nav_active">Administracija</a></li>
             <li><a href="registracija.php">Registracija</a></li>
+            <?php
+            if ($loginUspjeh == 1) {
+                echo "<li><a href='korisnik.php'>$kIme</a></li>";
+            } else {
+                echo "<li><a href='login.php'>Login</a></li>";
+            }
+            ?>
         </ul>
     </nav>
     <div id="black_line"></div>
@@ -94,22 +81,17 @@ if (isset($_POST["submit"])) {
         <?php
         if ($loginUspjeh == 0) {
             $footerClass = "bottom";
-            echo "<form name='forma' action='' method='post'>
-            <label for='kIme'>Korisničko Ime</label><br>
-            <input type='text' name='kIme' id='kIme'><br>
-            <span id='kImeError'></span>
-            <br>
-            <label for='lozinka'>Lozinka</label><br>
-            <input type='password' name='lozinka' id='lozinka'><br>
-            <span id='lozinkaError'></span>
-            <br><br>
-            <input type='submit' id='submit' name='submit' value='Prijavi se'>
-        </form>";
+            echo "<p class='center'>Niste prijavljeni</p>";
+            echo "<div class='center'>";
+            echo "<a href='login.php'>Link na login</a>";
+            echo "</div>";
         } else {
             if ($razina == 0) {
                 $footerClass = "bottom";
+                echo "<div class='center'>";
                 echo "<p>$ime $prezime, $kIme nemate administrativna prava.</p>";
                 echo "<a href='registracija.php'>Link za registraciju</a>";
+                echo "</div>";
             } else {
                 $query = "SELECT * FROM $tablename";
                 $result = mysqli_query($connection, $query);

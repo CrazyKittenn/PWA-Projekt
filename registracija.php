@@ -3,6 +3,7 @@
 
 <?php
 include "connect.php";
+session_start();
 $uspjeh = 0;
 if (isset($_POST["submit"])) {
     $uspjeh = 1;
@@ -27,6 +28,13 @@ if (isset($_POST["submit"])) {
             mysqli_stmt_execute($stmt);
         }
     }
+}
+
+$loginUspjeh = 0;
+$kIme = "";
+if (isset($_SESSION["login_uspjeh"])) {
+    $loginUspjeh = $_SESSION["login_uspjeh"];
+    $kIme = $_SESSION["kIme"];
 }
 ?>
 
@@ -53,6 +61,13 @@ if (isset($_POST["submit"])) {
             <li><a href="kategorija.php?k=retro">Retro</a></li>
             <li><a href="administracija.php">Administracija</a></li>
             <li><a href="#" id="nav_active">Registracija</a></li>
+            <?php
+            if ($loginUspjeh == 1) {
+                echo "<li><a href='korisnik.php'>$kIme</a></li>";
+            } else {
+                echo "<li><a href='login.php'>Login</a></li>";
+            }
+            ?>
         </ul>
     </nav>
     <div id="black_line"></div>

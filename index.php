@@ -10,6 +10,15 @@
     <link rel="stylesheet" href="css/style.css">
     <title>Početna</title>
 </head>
+<?php
+session_start();
+$loginUspjeh = 0;
+$kIme = "";
+if (isset($_SESSION["login_uspjeh"])) {
+    $loginUspjeh = $_SESSION["login_uspjeh"];
+    $kIme = $_SESSION["kIme"];
+}
+?>
 
 <body>
     <nav>
@@ -18,12 +27,19 @@
                 <a href="#">Game News</a>
             </li>
             <li><a href="#" id="nav_active">Početna</a></li>
-            <li><a href="unos.html">Unos</a></li>
+            <li><a href="unos.php">Unos</a></li>
             <li><a href="vijest.php">Vijesti</a></li>
             <li><a href="kategorija.php?k=popularno">Popularno</a></li>
             <li><a href="kategorija.php?k=retro">Retro</a></li>
             <li><a href="administracija.php">Administracija</a></li>
             <li><a href="registracija.php">Registracija</a></li>
+            <?php
+            if ($loginUspjeh == 1) {
+                echo "<li><a href='korisnik.php'>$kIme</a></li>";
+            } else {
+                echo "<li><a href='login.php'>Login</a></li>";
+            }
+            ?>
         </ul>
     </nav>
     <div id="black_line"></div>

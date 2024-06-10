@@ -10,6 +10,15 @@
     <link rel="stylesheet" href="css/style.css">
     <title>Unos</title>
 </head>
+<?php
+session_start();
+$loginUspjeh = 0;
+$kIme = "";
+if (isset($_SESSION["login_uspjeh"])) {
+    $loginUspjeh = $_SESSION["login_uspjeh"];
+    $kIme = $_SESSION["kIme"];
+}
+?>
 
 <body>
     <nav>
@@ -24,6 +33,13 @@
             <li><a href="kategorija.php?k=retro">Retro</a></li>
             <li><a href="administracija.php">Administracija</a></li>
             <li><a href="registracija.php">Registracija</a></li>
+            <?php
+            if ($loginUspjeh == 1) {
+                echo "<li><a href='korisnik.php'>$kIme</a></li>";
+            } else {
+                echo "<li><a href='login.php'>Login</a></li>";
+            }
+            ?>
         </ul>
     </nav>
     <div id="black_line"></div>
