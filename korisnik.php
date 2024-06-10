@@ -30,7 +30,7 @@ if (isset($_SESSION["login_uspjeh"])) {
     <meta name="keywords" content="Video igrice, Vijesti">
     <meta name="author" content="Filip Gredelj">
     <link rel="stylesheet" href="css/style.css">
-    <title><?php echo "$kime" ?>
+    <title><?php echo "$kIme" ?>
     </title>
 </head>
 
