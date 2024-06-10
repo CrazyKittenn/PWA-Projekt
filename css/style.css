@@ -111,21 +111,6 @@ main.pocetna section article a p {
     font-weight: bold;
 }
 
-main.clanak h1 {
-    color: black;
-    padding-left: 2%;
-    padding-top: 1%;
-    margin-bottom: 0;
-    margin-top: 0;
-}
-
-main.clanak img {
-    margin: auto;
-    text-align: center;
-    width: 20%;
-}
-
-
 main.forma form {
     margin: auto;
     text-align: center;

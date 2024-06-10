@@ -48,6 +48,8 @@ while ($row = mysqli_fetch_array($result)) {
     $slika = $row["slika"];
     $sadrzaj = $row["tekst"];
 }
+
+
 ?>
 
 <head>

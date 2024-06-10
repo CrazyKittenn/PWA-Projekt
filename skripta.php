@@ -17,11 +17,11 @@ $arhiva = 0;
 if (isset($_POST["arhiva"])) {
     $arhiva = 1;
 }
-$date = date('Y-m-d');
+$datum = date('Y-m-d');
 $query = "INSERT INTO $tablename (datum, naslov, sazetak, tekst, slika, kategorija, arhiva) 
-          VALUES ('$date', '$naslov','$sadrzaj', '$tekst', '$slika', '$kategorija', '$arhiva')";
+          VALUES ('$datum', '$naslov','$sadrzaj', '$tekst', '$slika', '$kategorija', '$arhiva')";
 $result = mysqli_query($connection, $query) or die('Error querying databese.');
-
+$datum = date("j.m.y", strtotime($datum));
 $loginUspjeh = 0;
 $kIme = "";
 if (isset($_SESSION["login_uspjeh"])) {
@@ -82,7 +82,7 @@ if (isset($_SESSION["login_uspjeh"])) {
         <hr>
     </main>
 </body>
-<footer id="footer">
+<footer id="bottom">
     <p>Filip Gredelj fgredelj@tvz.hr 2024</p>
 </footer>
 
