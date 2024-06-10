@@ -12,11 +12,14 @@ while ($row = mysqli_fetch_array($result)) {
     $ids[$count] = $row["id"];
     $count++;
 }
-if (isset($_GET["id"])) {
-    $id = $_GET["id"];
-} else {
-    $id = $ids[0];
+if ($count > 0) {
+    if (isset($_GET["id"])) {
+        $id = $_GET["id"];
+    } else {
+        $id = $ids[0];
+    }
 }
+
 
 $loginUspjeh = 0;
 $kIme = "";
@@ -92,41 +95,43 @@ while ($row = mysqli_fetch_array($result)) {
     <div class="center">
         <div class="pagination">
             <?php
-            $position = array_search($id, $ids);
-            if ($id == $ids[0]) {
-                echo "<a href='#' class='disabled' tabindex='-1'>&laquo;</a>";
-            } else {
-                $prevoiusId = $ids[$position - 1];
-                echo "<a href='vijest.php?id=$prevoiusId'>&laquo;</a>";
-            }
-            $startIndex = 0;
-            $endIndex = $count;
-            if ($count > 5) {
-                if ($position > 2) {
-                    $startIndex = $position - 2;
-                    $endIndex = $position + 3;
+            if ($count > 0) {
+                $position = array_search($id, $ids);
+                if ($id == $ids[0]) {
+                    echo "<a href='#' class='disabled' tabindex='-1'>&laquo;</a>";
                 } else {
-                    $endIndex = 5;
+                    $prevoiusId = $ids[$position - 1];
+                    echo "<a href='vijest.php?id=$prevoiusId'>&laquo;</a>";
                 }
-                if ($position > $count - 4) {
-                    $startIndex = $count - 5;
-                    $endIndex = $count;
+                $startIndex = 0;
+                $endIndex = $count;
+                if ($count > 5) {
+                    if ($position > 2) {
+                        $startIndex = $position - 2;
+                        $endIndex = $position + 3;
+                    } else {
+                        $endIndex = 5;
+                    }
+                    if ($position > $count - 4) {
+                        $startIndex = $count - 5;
+                        $endIndex = $count;
+                    }
                 }
-            }
-            for ($i = $startIndex; $i < $endIndex; $i++) {
-                $displayIndex = $i + 1;
-                if ($i == $position) {
-                    echo "<a class='active' href='#'>$displayIndex</a>";
+                for ($i = $startIndex; $i < $endIndex; $i++) {
+                    $displayIndex = $i + 1;
+                    if ($i == $position) {
+                        echo "<a class='active' href='#'>$displayIndex</a>";
+                    } else {
+                        $linkId = $ids[$startIndex + $i];
+                        echo "<a href='vijest.php?id=$linkId'>$displayIndex</a>";
+                    }
+                }
+                if ($id == $ids[$count - 1]) {
+                    echo "<a href='#' class='disabled' tabindex='-1'>&raquo;</a>";
                 } else {
-                    $linkId = $ids[$startIndex + $i];
-                    echo "<a href='vijest.php?id=$linkId'>$displayIndex</a>";
+                    $nextId = $ids[$position + 1];
+                    echo "<a href='vijest.php?id=$nextId'>&raquo;</a>";
                 }
-            }
-            if ($id == $ids[$count - 1]) {
-                echo "<a href='#' class='disabled' tabindex='-1'>&raquo;</a>";
-            } else {
-                $nextId = $ids[$position + 1];
-                echo "<a href='vijest.php?id=$nextId'>&raquo;</a>";
             }
             ?>
         </div>

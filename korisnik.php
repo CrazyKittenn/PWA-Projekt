@@ -74,9 +74,9 @@ if (isset($_SESSION["login_uspjeh"])) {
                 <p>Korisnicko ime: $kIme</p>      
                 ";
             if ($razina == 1) {
-                echo "<p>Razina: administrator</p>";
+                echo "<p>Razina: Administrator</p>";
             } else {
-                echo "<p>Razina: ostalo</p>";
+                echo "<p>Razina: Ostalo</p>";
             }
             echo "</div>";
             echo "<form name='forma' action='' method='post'>
