@@ -95,6 +95,10 @@ if (isset($_POST["update"])) {
             } else {
                 $query = "SELECT * FROM $tablename";
                 $result = mysqli_query($connection, $query);
+                $numRows = mysqli_num_rows($result);
+                if ($numRows < 3) {
+                    $footerClass = "bottom";
+                }
                 while ($row = mysqli_fetch_array($result)) {
                     $naslov = $row["naslov"];
                     $sazetak = $row["sazetak"];
