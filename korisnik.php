@@ -6,7 +6,7 @@ session_start();
 $loginUspjeh = 0;
 $ime = "";
 $prezime = "";
-$kIme = "korisnik";
+$kIme = "Niste prijavljeni";
 $razina = 0;
 
 if (isset($_POST["submit"])) {
