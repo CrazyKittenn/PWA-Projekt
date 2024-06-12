@@ -1,6 +1,6 @@
 # PWA Projekt - Filip Gredelj
 Projekt za kolegij PWA.
-#Korisnici
+# Korisnici
 Korisničko ime - Filip
 Lozinka - 1234
 Razina - admin
