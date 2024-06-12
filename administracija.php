@@ -36,7 +36,7 @@ if (isset($_POST["update"])) {
         $slika = $_POST["slika"];
     }
     $target_dir = "Images/$slika";
-    move_uploaded_file($_FILES["photo"]["tmp_name"], $slika);
+    move_uploaded_file($_FILES["photo"]["tmp_name"], $target_dir);
     $query = "UPDATE vijesti SET naslov='$naslov', sazetak='$sazetak', tekst='$tekst',
     slika='$slika', kategorija='$kategorija', arhiva='$arhiva' WHERE id=$id ";
     $result = mysqli_query($connection, $query);
@@ -60,7 +60,7 @@ if (isset($_POST["update"])) {
                 <a href="index.php">Game News</a>
             </li>
             <li><a href="index.php">Početna</a></li>
-            <li><a href="unos.html">Unos</a></li>
+            <li><a href="unos.php">Unos</a></li>
             <li><a href="vijest.php">Vijesti</a></li>
             <li><a href="kategorija.php?k=popularno">Popularno</a></li>
             <li><a href="kategorija.php?k=retro">Retro</a></li>

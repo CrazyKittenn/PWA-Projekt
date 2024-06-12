@@ -69,7 +69,7 @@ while ($row = mysqli_fetch_array($result)) {
                 <a href="index.php">Game News</a>
             </li>
             <li><a href="index.php">Početna</a></li>
-            <li><a href="unos.html">Unos</a></li>
+            <li><a href="unos.php">Unos</a></li>
             <li><a href="vijest.php">Vijesti</a></li>
 
             <?php

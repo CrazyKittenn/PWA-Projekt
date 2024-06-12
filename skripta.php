@@ -82,7 +82,7 @@ if (isset($_SESSION["login_uspjeh"])) {
         <hr>
     </main>
 </body>
-<footer id="bottom">
+<footer class="bottom">
     <p>Filip Gredelj fgredelj@tvz.hr 2024</p>
 </footer>
 

@@ -59,7 +59,7 @@ if (isset($_POST["submit"])) {
                 <a href="index.php">Game News</a>
             </li>
             <li><a href="index.php">Početna</a></li>
-            <li><a href="unos.html">Unos</a></li>
+            <li><a href="unos.php">Unos</a></li>
             <li><a href="vijest.php">Vijesti</a></li>
             <li><a href="kategorija.php?k=popularno">Popularno</a></li>
             <li><a href="kategorija.php?k=retro">Retro</a></li>
