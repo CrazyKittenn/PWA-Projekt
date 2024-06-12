@@ -3,7 +3,7 @@ Projekt za kolegij PWA.
 # Korisnici
 Korisničko ime - Filip
 Lozinka - 1234
-Razina - admin
+Razina - admin\
 Korisničko ime - Test
 Lozinka - 1234
 Razina - ostalo
