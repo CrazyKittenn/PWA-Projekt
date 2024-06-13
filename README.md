@@ -1,4 +1,4 @@
-# PWA Projekt - Filip Gredelj\
+# PWA Projekt - Filip Gredelj
 Projekt za kolegij PWA.
 
 # Korisnici
