@@ -4,6 +4,7 @@
 include "connect.php";
 session_start();
 $loginUspjeh = 0;
+$pokusaj = 0;
 $ime = "";
 $prezime = "";
 $kIme = "";
@@ -37,6 +38,10 @@ if (isset($_POST["submit"])) {
         $_SESSION["prezime"] = $prezime;
         $_SESSION["kIme"] = $kIme;
         $_SESSION["razina"] = $razina;
+    }
+
+    if (isset($_POST["pokusaj"]) && $_POST["pokusaj"] == 1) {
+        $pokusaj = 1;
     }
 }
 
@@ -88,8 +93,12 @@ if (isset($_POST["submit"])) {
             <input type='password' name='lozinka' id='lozinka'><br>
             <span id='lozinkaError'></span>
             <br><br>
+            <input type='hidden' name='pokusaj' value='1'>
             <input type='submit' id='submit' name='submit' value='Prijavi se'>
             </form>";
+            if ($pokusaj == 1) {
+                echo "<p class='center'>Korisničko ime ili lozinka su krivi!</p>";
+            }
         } else {
             echo "<p class='center'>Prijavljeni kao $ime $prezime, $kIme</p>";
         }
